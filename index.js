@@ -1,6 +1,6 @@
 let express = require('express')
 let app = express()
-app.use(express.static(__dirname + "/"));
+//app.use(express.static(__dirname + "/"));
 // Basic HTTP authentication middleware
 app.use((req, res, next) => {
     

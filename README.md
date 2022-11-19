@@ -1,5 +1,23 @@
 # ProjetJS
 
+## Configuration
+
+Logiciel :
+
+Voir si node et npm sont installés (retourne le n° de version si c'est le cas)
+node -v
+npm -v
+
+Lancement du serveur :
+npm run start
+
+URL du site :
+http://localhost:8080/
+
+Clé authentification:
+nom : admin
+mdp : admin123
+
 ## Design Pattern Projet
 
 Dans ce projet, vous devez développer en groupe une application Web avec une architecture client-serveur pour gérer des agendas.
