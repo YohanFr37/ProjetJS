@@ -1,6 +1,8 @@
 let express = require('express')
 let app = express()
-//app.use(express.static(__dirname + "/"));
+app.use(express.static(__dirname + "/"));
+// Simulate a mouse click:
+//
 // Basic HTTP authentication middleware
 app.use((req, res, next) => {
     
@@ -31,8 +33,9 @@ app.use((req, res, next) => {
             res.status(401).set('WWW-Authenticate', 'Basic')
             next(err)
         } 
-        res.status(200)
         
+        res.status(200)
+        res.redirect('main.html')
         next()
             
     }
