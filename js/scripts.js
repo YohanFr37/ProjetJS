@@ -1,6 +1,6 @@
-let currentDay = new Date(); // Today's date
-let currentMonth = currentDay.getMonth();
-let currentYear = currentDay.getFullYear();
+let todaysDate = new Date(); // Today's date
+let currentMonth = todaysDate.getMonth();
+let currentYear = todaysDate.getFullYear();
 
 let months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
@@ -14,6 +14,10 @@ function nextMonth() {
     }
     currentMonth = (currentMonth + 1) % 12; // currentMonth modulo 12. Always between 0 and 11
     showCalendar(currentMonth, currentYear); // Show new calendar
+}
+
+function todaysMonth() {
+    showCalendar(todaysDate.getMonth(), todaysDate.getFullYear());
 }
 
 // Displays previous month
@@ -60,7 +64,7 @@ function showCalendar(month, year) {
             else {
                 let cell = document.createElement("td"); // Create new cell
                 let cellText = document.createTextNode(date); // Cell text containing the date (starting at 1)
-                if (date === currentDay.getDate() && year === currentDay.getFullYear() && month === currentDay.getMonth()) {
+                if (date === todaysDate.getDate() && year === todaysDate.getFullYear() && month === todaysDate.getMonth()) {
                     cell.style.color = 'red';
                 } // Make today's date visible
                 cell.appendChild(cellText); // Put the text in the cell
