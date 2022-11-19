@@ -2,9 +2,9 @@
 var http = require('http');
 var fs = require('fs'); // FileSystem to read the HTML file
 
-const PORT=8080; // Port the server wil be listening on
+const port=8080; // Port the server wil be listening on
 
-fs.readFile('./index.html', function (err, html) {
+fs.readFile('./index.html', function (error, html) {
 
     if (error) throw error;    
 
@@ -12,7 +12,12 @@ fs.readFile('./index.html', function (err, html) {
         response.writeHeader(200, {"Content-Type": "text/html"});  
         response.write(html);  // Load the HTML file
         response.end();  
-    }).listen(PORT); // Listen on the specified port
+    }).listen(port, (error) => { // Listen on the specified port
+      if (error) {
+        return console.log('something bad happened', error)
+      }
+      console.log(`server is listening on ${port}`)
+    })
 });
 
 /*
