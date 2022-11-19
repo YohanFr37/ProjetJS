@@ -7,6 +7,28 @@ let months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", 
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
 
+// Displays next month
+function nextMonth() {
+    if (currentMonth === 11){ // If currentMonth is December...
+        currentYear = currentYear + 1; //... Increase currentYear number
+    }
+    currentMonth = (currentMonth + 1) % 12; // currentMonth modulo 12. Always between 0 and 11
+    showCalendar(currentMonth, currentYear); // Show new calendar
+}
+
+// Displays previous month
+function previousMonth() {
+    if (currentMonth === 0){ // If currentMonth is January...
+        currentYear = currentYear - 1; //... Decrease currentYear number
+        currentMonth = 11; //... currentMonth becomes December
+    }
+    else{
+        currentMonth = currentMonth - 1;
+    }
+    showCalendar(currentMonth, currentYear); // Show new calendar
+}
+
+// Method to generate and display (fill) the calendar grid
 function showCalendar(month, year) {
 
     let firstDayOfMonth = (new Date(year, month)).getDay(); // Gets the first day of the month number ID
