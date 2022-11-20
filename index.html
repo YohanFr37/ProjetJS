@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Calendrier</title>
+  <title>Login</title>
   <meta name="description" content="Application web calendrier, avec gestion de rendez-vous et évènements">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,31 +11,35 @@
 <body>
   <div> <!-- Global container -->
     <div> <!-- Calendar grid container, shows which month and year is being displayed-->
-      <h3 id="monthAndYear">Mois Année</h3>
-      <div> <!-- Prev/Next month buttons, other future buttons ?-->
+      <form class="login-form">
+        <input type="text" id="login" name="login" placeholder="Nom de compte" required/>
+        <input type="password" id="mdp" name="mdp"  placeholder="Mot de passe" required/>          
+          <button type="button" id="Login" onclick="Validate()">Login</button>
+      </form>
+<script>
+function Validate() {
+  const log = document.getElementById("login").value;
+  const mdp = document.getElementById("mdp").value;
+//alert(log + " " + mdp);
+  if(log == "admin" && mdp == "admin123"){
+    document.location.href="calendar";
 
-        <button id="previous" onclick="previousMonth()">Précédent</button>
-        <button id="next" onclick="nextMonth()">Suivant</button>
-        <button id="today" onclick="todaysMonth()">Aujourd'hui</button>
+  }
+  //
 
-      </div>
-      <table id="calendar">
-        <thead> <!-- Days of the week row-->
-        <tr>
-          <th>Lundi</th>
-          <th>Mardi</th>
-          <th>Mercredi</th>
-          <th>Jeudi</th>
-          <th>Venredi</th>
-          <th>Samedi</th>
-          <th>Dimanche</th>
-        </tr>
-        </thead>
 
-        <tbody id="calendar-body">
-          <!-- Calendar body, dynamically generated with JS script -->
-        </tbody>
-      </table>
+}
+
+/*
+let myObject = {
+     popup: function(){
+      const log = document.getElementById('log');
+      const mdp = document.getElementById('mdp');
+         alert(log);
+     },
+ }*/
+</script>
+
     </div>
     <br>
   </div>

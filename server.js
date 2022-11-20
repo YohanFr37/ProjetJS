@@ -1,4 +1,5 @@
 // content of index.js
+/*
 var http = require('http');
 var fs = require('fs'); // FileSystem to read the HTML file
 
@@ -19,7 +20,7 @@ fs.readFile('./index.html', function (error, html) {
       console.log(`server is listening on ${port}`)
     })
 });
-
+*/
 /*
 
 const http = require('http')
