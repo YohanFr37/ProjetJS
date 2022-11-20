@@ -2,10 +2,10 @@
   "name": "projetjs",
   "version": "1.0.0",
   "description": "application Web avec une architecture client-serveur pour gérer des agendas",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "nodemon index.js",
     "html": "index.html"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/YohanFr37/ProjetJS#readme",
   "dependencies": {
+    "bootstrap": "^5.2.2",
     "express": "^4.18.2",
     "node": "^19.1.0"
   },

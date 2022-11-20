@@ -1,0 +1,28 @@
+table.table {
+    table-layout: fixed;
+    width: 49em;
+}
+
+#top{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+table.jour {
+    table-layout: fixed;
+    width: 49em;
+}
+
+#jour{
+    height: 1em;
+
+}
+
+#calendrier{
+    height: 7em;
+}
+
+#day-table {
+    table-layout: fixed;
+    width: 49em;
+}
