@@ -1,27 +1,24 @@
 {
   "name": "projetjs",
   "version": "1.0.0",
-  "description": "Projet de développement WEB - M1 INFO DP",
-  "main": "app.js",
+  "description": "application Web avec une architecture client-serveur pour gérer des agendas",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "html": "index.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YohanFr37/ProjetJS.git"
   },
-  "author": "Yohan",
+  "author": "Guillaume LETZELTER, Yohan BOUCHER, Sven CLEMENT",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/YohanFr37/ProjetJS/issues"
   },
   "homepage": "https://github.com/YohanFr37/ProjetJS#readme",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "express": "^4.18.2",
-    "fullcalendar": "^5.11.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
+    "node": "^19.1.0"
   }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Calendrier</title>
+  <meta name="description" content="Application web calendrier, avec gestion de rendez-vous et évènements">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div> <!-- Global container -->
+    <div> <!-- Calendar grid container, shows which month and year is being displayed-->
+      <h3 id="monthAndYear">Mois Année</h3>
+      <div> <!-- Prev/Next month buttons, other future buttons ?-->
+
+        <button id="previous" onclick="previousMonth()">Précédent</button>
+        <button id="next" onclick="nextMonth()">Suivant</button>
+        <button id="today" onclick="todaysMonth()">Aujourd'hui</button>
+
+      </div>
+      <table id="calendar">
+        <thead> <!-- Days of the week row-->
+        <tr>
+          <th>Lundi</th>
+          <th>Mardi</th>
+          <th>Mercredi</th>
+          <th>Jeudi</th>
+          <th>Venredi</th>
+          <th>Samedi</th>
+          <th>Dimanche</th>
+        </tr>
+        </thead>
+
+        <tbody id="calendar-body">
+          <!-- Calendar body, dynamically generated with JS script -->
+        </tbody>
+      </table>
+    </div>
+    <br>
+  </div>
+
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>
