@@ -6,7 +6,11 @@ let months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", 
 
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);
-
+function jump(){
+let monthSelect = document.getElementById("month").value;
+let yearSelect = document.getElementById("year").value;
+    showCalendar(monthSelect, yearSelect);
+}
 // Displays next month
 function nextMonth() {
     if (currentMonth === 11){ // If currentMonth is December...
