@@ -4,6 +4,11 @@
 
 Logiciel :
 
+Installation de nodemon
+
+Mac/Linux : npm install nodemon --save-dev
+Windows : npm install -g nodemon
+
 Voir si node et npm sont installés (retourne le n° de version si c'est le cas)
 node -v
 npm -v
@@ -17,6 +22,9 @@ http://localhost:8080/
 Clé authentification:
 nom : admin
 mdp : admin123
+
+Installation fullcalandar
+npm install fullcalendar
 
 ## Design Pattern Projet
 
