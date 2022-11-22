@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="utf-8">
   <title>Calendrier</title>
@@ -16,29 +14,29 @@
       <div> <!-- Prev/Next month buttons, other future buttons ?-->
         <div class="container" id="top">
           <div class="row">
-            <div class="col">
-              <div class="btn-group" role="group" aria-label="Horizontal Button Group">
-                <button type="button" class="btn btn-outline-dark" id="previous" onclick="previousMonth()">Précédent</button>
-                <button type="button" class="btn btn-outline-dark" id="next" onclick="nextMonth()">Suivant</button>
-                <button type="button" class="btn btn-outline-dark" id="today" onclick="todaysMonth()">Aujourd'hui</button>
-                  </div>            
+            <div class="col">           
+                </div>
+                <div class="col">
+                  <h3 id="info"></h3>
                 </div>
             <div class="col">
-              <h3 id="monthAndYear">Mois Année</h3>
-            </div>
-            <div class="col">
+              <!-- Les trois boutons situés en haut à droite permet de naviguer entre les 3 vues en cliquant dessus-->
               <div class="btn-group" role="group" aria-label="Horizontal Button Group">
-
               <button type="button" class="btn btn-outline-dark" id="day" onclick="showDay()">Jour</button>
               <button type="button" class="btn btn-outline-dark" id="week" onclick="showWeek()">Semaine</button>
-              <button type="button" class="btn btn-outline-dark" id="month" onclick="showCalendar(currentMonth, currentYear)">Mois</button>
+              <button type="button" class="btn btn-outline-dark" id="month" onclick="showCalendar(monthSelect, yearSelect)">Mois</button>
             </div></div>
           </div>
         </div>
       </div>
-
+      <!-- Table comprenant les 3 boutons à gauche du calendrier -->
       <table class="table table-striped table-bordered" id="month-table">
-        <thead> <!-- Days of the week row-->
+        <div class="btn-group" role="group" aria-label="Horizontal Button Group" id="month-button">
+          <button type="button" class="btn btn-outline-dark" id="previous" onclick="previousMonth()">Mois Précédent</button>
+          <button type="button" class="btn btn-outline-dark" id="next" onclick="nextMonth()">Mois Suivant</button>
+          <button type="button" class="btn btn-outline-dark" id="today" onclick="todaysMonth()">Aujourd'hui</button>
+            </div> 
+        <thead> <!-- Jour de la semaine affiché en première ligne du tableau-->
         <tr>
           <th scope="col">Lundi</th>
           <th scope="col">Mardi</th>
@@ -51,9 +49,10 @@
         </thead>
 
         <tbody id="calendar-body">
-          <!-- Calendar body, dynamically generated with JS script -->
+          <!-- Construction du calendrier avec le script JS -->
         </tbody>
       </table>
+      
       <form class="form-inline">
         <div class="container">
           <div class="row">
@@ -91,19 +90,31 @@
     </div>
     </div>
       </form>
+      <!-- Table comprenant les 3 boutons à gauche pour la vue jour -->
       <table class="table table-striped table-bordered" id="day-table">
-        <thead> <!-- Days of the week row-->
+        <div class="btn-group" role="group" aria-label="Horizontal Button Group" id="day-button">
+          <button type="button" class="btn btn-outline-dark" id="previous" onclick="previousDay()">Jour Précédent</button>
+          <button type="button" class="btn btn-outline-dark" id="next" onclick="nextDay()">Jour Suivant</button>
+          <button type="button" class="btn btn-outline-dark" id="today" onclick="todaysDay()">Aujourd'hui</button>
+            </div> 
+        <thead> <!-- Remplissage de la premièreligne-->
         <tr>
           <th scope="col">Heure</th>
           <th scope="col">Journée</th>
         </tr>
         </thead>
         <tbody id="day-body" >
-          <!-- Calendar body, dynamically generated with JS script -->
-        </tbody>
+        <!-- Construction de la table avec la fonction showDay dans script.js -->
+    </tbody>
       </table>
+            <!-- Table comprenant les 3 boutons à gauche pour la vue semaine -->
       <table class="table table-striped table-bordered" id="week-table">
-        <thead> <!-- Days of the week row-->
+        <div class="btn-group" role="group" aria-label="Horizontal Button Group" id="week-button">
+          <button type="button" class="btn btn-outline-dark" id="previous" onclick="previousWeek()">Semaine Précédente</button>
+          <button type="button" class="btn btn-outline-dark" id="next" onclick="nextWek()">Semaine Suivante</button>
+          <button type="button" class="btn btn-outline-dark" id="today" onclick="todaysWeek()">Aujourd'hui</button>
+            </div> 
+        <thead> <!-- Heure et jour de la semaine dans la première ligne-->
         <tr>
           <th scope="col">Heure</th>
           <th scope="col">Lundi</th>
@@ -116,8 +127,8 @@
         </tr>
         </thead>
         <tbody id="week-body" >
-          <!-- Calendar body, dynamically generated with JS script -->
-        </tbody>
+        <!-- Construction de la table avec la fonction showWeek dans script.js -->
+      </tbody>
       </table>
       </div>
     </div>
