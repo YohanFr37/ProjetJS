@@ -111,19 +111,19 @@
       <table class="table table-striped table-bordered" id="week-table">
         <div class="btn-group" role="group" aria-label="Horizontal Button Group" id="week-button">
           <button type="button" class="btn btn-outline-dark" id="previous" onclick="previousWeek()">Semaine Précédente</button>
-          <button type="button" class="btn btn-outline-dark" id="next" onclick="nextWek()">Semaine Suivante</button>
+          <button type="button" class="btn btn-outline-dark" id="next" onclick="nextWeek()">Semaine Suivante</button>
           <button type="button" class="btn btn-outline-dark" id="today" onclick="todaysWeek()">Aujourd'hui</button>
             </div> 
         <thead> <!-- Heure et jour de la semaine dans la première ligne-->
         <tr>
-          <th scope="col">Heure</th>
-          <th scope="col">Lundi</th>
-          <th scope="col">Mardi</th>
-          <th scope="col">Mercredi</th>
-          <th scope="col">Jeudi</th>
-          <th scope="col">Vendredi</th>
-          <th scope="col">Samedi</th>
-          <th scope="col">Dimanche</th>
+          <th scope="col">Heure </th>
+          <th scope="col">Lundi<br></br><text id="week-day-lun"></text></th>
+          <th scope="col">Mardi<br></br><text id="week-day-mar"></text></th>
+          <th scope="col">Mercredi<br></br><text id="week-day-mer"></text></th>
+          <th scope="col">Jeudi<br></br><text id="week-day-jeu"></text></th>
+          <th scope="col">Vendredi<br></br><text id="week-day-ven"></text></th>
+          <th scope="col">Samedi<br></br><text id="week-day-sam"></text></th>
+          <th scope="col">Dimanche<br></br><text id="week-day-dim"></text></th>
         </tr>
         </thead>
         <tbody id="week-body" >
