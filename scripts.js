@@ -5,7 +5,8 @@ let currentHours = todaysDate.getHours();
 let monthSelect = currentMonth;
 let yearSelect = currentYear;
 let daySelect = todaysDate.getDate();
-let months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+let months = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+let englishMonths = ["january", "February","March","April","May","June","July","August","September","October","November","December"];
 
 // Variables permettant de gérer l'affichage des 3 vues
 let dayTable = document.getElementById("day-table");
@@ -44,6 +45,8 @@ monthSelect = +document.getElementById("monthSelect").value;
 yearSelect = +document.getElementById("yearSelect").value;
     showCalendar(monthSelect, yearSelect);
 }
+
+
 // Fonction renvoyant le mois suivant
 function nextMonth() {
     if (monthSelect === 11){ // Si le mois est Décembre
@@ -64,6 +67,17 @@ function nextDay() {
     showDay(); // Mise à jour de la vue "jour"
 }
 
+// Fonction renvoyant la semaine suivante
+
+function nextWeek(){
+    if(daySelect + 7  >= getDaysInMonth(yearSelect, monthSelect+1)){
+        daySelect = daySelect - getDaysInMonth(yearSelect, monthSelect+1)
+        nextMonth();
+    }
+    daySelect = daySelect + 7;
+    showWeek();
+}
+
 // Fonction renvoyant le jour actuel
 function todaysDay() {
     monthSelect = todaysDate.getMonth();
@@ -71,7 +85,13 @@ function todaysDay() {
     yearSelect = todaysDate.getFullYear();
     showDay();
 }
-
+// Fonction renvoyant le jour actuel
+function todaysWeek() {
+    monthSelect = todaysDate.getMonth();
+    daySelect = todaysDate.getDate();
+    yearSelect = todaysDate.getFullYear();
+    showWeek();
+}
 // Fonction renvoyant le mois actuel
 function todaysMonth() {
     monthSelect = todaysDate.getMonth();
@@ -85,7 +105,6 @@ function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
   }
 
-
 function previousDay(){
     if (daySelect === 1){ // Si le jour est le premier du mois
         daySelect = getDaysInMonth(yearSelect, monthSelect); // Récupère le nombre de jour dans le mois précedent
@@ -95,6 +114,17 @@ function previousDay(){
         daySelect = daySelect - 1;
     }
     showDay(); // Show new calendar
+}
+
+function previousWeek(){
+    if(daySelect <= 7){ // si il est necessaire de reculer de mois
+        daySelect = getDaysInMonth(yearSelect, monthSelect) - ( 7 - daySelect); // Rémet le bon jour dans le mois précedent
+        previousMonth();
+    }
+    else{
+        daySelect = daySelect - 7; 
+    }
+    showWeek();
 }
 
 // Fonction renvoyant au mois précedant
@@ -191,9 +221,24 @@ function showWeek() {
     weekButton.style.display = "";
     calendarButton.style.display = "none";
 
+    const tmpDays = new Date(daySelect + englishMonths[monthSelect] + yearSelect); 
+    daySelect = daySelect - tmpDays.getDay()+1;
+
+    // Affichage des chiffres des jours sur la ligne des jours, afin d'avoir une meilleurs visu
+    let dayWeek;
+    let currentDayWeek = daySelect;
+    for(const dayS of ["week-day-lun","week-day-mar","week-day-mer","week-day-jeu","week-day-ven","week-day-sam","week-day-dim"]){
+        dayWeek = document.getElementById(dayS);
+        currentDayWeek=currentDayWeek%getDaysInMonth(yearSelect,monthSelect+1);
+        if(currentDayWeek == 0)
+            currentDayWeek++;
+        dayWeek.innerHTML = currentDayWeek;
+        currentDayWeek++;
+    }
+
     let table = document.getElementById("week-body");
     table.innerHTML = ""; // Clears all table cells
-    info.innerHTML = "Semaine";
+    info.innerHTML = months[monthSelect] + " " + yearSelect;
 
     // Création du tableau 24x8 de la semaine (1ère colonne : heure, 2nd à 8e : jour de la semaine)
     for(let i = 0; i < 24; i++){
@@ -241,7 +286,7 @@ function showDay() {
     table.innerHTML = ""; // Clears all table cells
     
     //Affiche en haut et au centre de la page les informations concernant le jour, mois et année
-    info.innerHTML = daySelect + "/" + Number(monthSelect+1) + "/" + yearSelect;
+    info.innerHTML = daySelect + " " + months[monthSelect] + " " + yearSelect;
 
     //Création d'un tableau de 24x2 (1ère colonne: heures, 2nd colonne: agenda)
     for(let i = 0; i < 24; i++){
