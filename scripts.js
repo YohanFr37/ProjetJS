@@ -272,3 +272,8 @@ function showDay() {
         table.appendChild(row);
     }
 }
+
+function test() {
+      document.location.href="test";
+
+  }
