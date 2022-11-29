@@ -318,7 +318,6 @@ function showDay() {
     }
 }
 
-function test() {
-      document.location.href="test";
-
-  }
+function update() {
+      document.location.href="update";
+}

@@ -2,6 +2,8 @@ const sqlite3 = require('sqlite3')
 const express = require('express')
 const app = express()
 const bodyParser = require("body-parser");
+const { json } = require('body-parser');
+const e = require('express');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -15,8 +17,8 @@ app.get('/', (req, res) => {
     //res.redirect('login.html') 
 })
 
-app.get('/test', (req, res) => {
-    res.redirect('test.html') 
+app.get('/update', (req, res) => {
+    res.redirect('update.html') 
 })
 
 app.get('/calendar', (req, res) => {
@@ -35,6 +37,7 @@ app.get("/agenda/:id", (req, res) => {
           res.status(400).json({"error":err.message});
           return;
         }
+        //res.render('test',{output: params})
         res.status(200).json(row);
       });
 });
@@ -45,58 +48,13 @@ app.get("/agenda", (req, res) => {
           res.status(400).json({"error":err.message});
           return;
         }
+        //res.data();
         res.status(200).json({rows});
+        
       });
 });
-// View
-/*
-app.post('/view', function(req,res){
-    db.serialize(()=>{
-      db.each('SELECT id ID, name NAME FROM emp WHERE id =?', [req.body.id], function(err,row){     //db.each() is only one which is funtioning while reading data from the DB
-        if(err){
-          res.send("Error encountered while displaying");
-          return console.error(err.message);
-        }
-        res.send(` ID: ${row.ID},    Name: ${row.NAME}`);
-        console.log("Entry displayed successfully");
-      });
-    });
-  });*/
 
-  /*// Insert
-app.post('/add', function(req,res){
-  db.serialize(()=>{
-    db.run('INSERT INTO emp(id,name) VALUES(?,?)', [req.body.id, req.body.name], function(err) {
-      if (err) {
-        return console.log(err.message);
-      }
-      console.log("New employee has been added");
-      res.send("New employee has been added into the database with ID = "+req.body.id+ " and Name = "+req.body.name);
-    });
-});
-});*/
-
-/*
-app.post('/calendrier/add',bodyParser, (req, res) => {
-    //let reqBody = re.body;
-    //const titre = req.body.titre
-    //const dateDebut = req.body.dateDebut
-    //const dateFin = req.body.dateFin
-    db.serialize(()=>{
-
-    db.run(`INSERT INTO agenda(titre, dateDebut, dateFin) VALUES (?,?,?)`, 
-        [req.body.titre, req.body.dateDebut, req.body.dateFin],
-        function (err) {
-            if (err) {
-                res.status(400).json({ "error": err.message })
-                return;
-            }
-            console.log("New employee has been added");
-            res.send("New employee has been added into the database with ID = "+req.titre+ " and Name = "+req.dateDebut + req.dateFin);
-        });
-    });
-});*/
-
+//Requête d'insertion de données sous JSON
 app.post("/calendrier/add/", (req, res, next) => {
   var errors=[]
   if (errors.length){
@@ -115,18 +73,98 @@ app.post("/calendrier/add/", (req, res, next) => {
           res.status(400).json({"error": err.message})
           return;
       }
+      const fs = require("fs")
+fs.readFile("./data.json", "utf8",(err,data)=>{
+  if(err){
+    console.log(`Erreur:${err.message}`);
+  } else {
+    const information = JSON.parse(data);
+    let newData = {
+      id: this.lastID,
+      titre: params[0],
+      dateDebut: params[1],
+      dateFin: params[2],
+    };
+    information.push(newData);
+    fs.writeFile("./data.json", JSON.stringify(information),(err)=>{
+      if(err){
+        console.log(`${err.message}`);
+      }else {
+        console.log('Writefile reussit');
+      }
+    })
+  }
+})
       res.json({
           "message": "success",
           "data": data,
           "id" : this.lastID
       })
   });
+
 })
 
-app.patch("/agenda/", (req, res, next) => {
+//Met à jour un RDV
+app.post("/calendrier/update/", (req, res, next) => {
+  //Récupère la position du RDV à changer par rapport au fichier JSON
+  let n = req.body.nb;
+  const fs = require("fs")
+  fs.readFile("./data.json", "utf8",(err,data)=>{
+    if(err){
+      res.status(400).json({"error":err.message});
+
+      console.log(`Erreur:${err.message}`);
+    } else {
+      const information = JSON.parse(data);
+      
+      let newData = {
+        id: parseInt(params[3]),
+        titre: params[0],
+        dateDebut: params[1],
+        dateFin: params[2],
+      };
+      //Récupère les nouvelles informations
+      information[n].titre = params[0];
+      information[n].dateDebut = params[1];
+      information[n].dateFin = params[2];
+      //Met à jour le JSON
+      fs.writeFileSync("./data.json", JSON.stringify(information, null, 2),(err)=>{
+        if(err){
+          console.log(`${err.message}`);
+        }else {
+          console.log('Writefile reussit');
+        }
+      })
+    }
+  })
+  var errors=[]
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+  let data = {
+      titre: req.body.titre,
+      dateDebut: req.body.dateDebut+' '+req.body.heureDebut,
+      dateFin : req.body.dateFin+' '+req.body.heureFin,
+      id: req.body.id
+  }
+  let sql =`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`
+  let params =[data.titre, data.dateDebut, data.dateFin, data.id]
+  db.run(sql, params, function (err, result) {
+      if (err){
+          res.status(400).json({"error": err.message})
+          return;
+      }res.status(200).json({           
+        "data": data,      
+  updatedID: this.changes });
+      
+  });
+})
+
+app.patch("/agenda/:id", (req, res, next) => {
     var reqBody = re.body;
-    db.run(`UPDATE agenda set titre = ?, dateDebut = ?, detaFin = ? WHERE id = ?`,
-        [reqBody.titre, reqBody.dateDebut, reqBody.detaFin, reqBody.id],
+    db.run(`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`,
+        [reqBody.titre, reqBody.dateDebut, reqBody.dateFin, reqBody.id],
         function (err, result) {
             if (err) {
                 res.status(400).json({ "error": res.message })
@@ -147,3 +185,52 @@ app.delete("/agenda/:id", (req, res, next) => {
             res.status(200).json({ deletedID: this.changes })
         });
 });
+
+
+//Supprimer un RDV un RDV
+app.post("/calendrier/delete/", (req, res, next) => {
+  //Récupère la position du RDV à changer par rapport au fichier JSON
+  let n = req.body.numberDelete;
+  const fs = require("fs")
+  fs.readFile("./data.json", "utf8",(err,data)=>{
+    if(err){
+      res.status(400).json({"error":err.message});
+      console.log(`Erreur:${err.message}`);
+    } else {
+      //Recupère le contenu du JSON
+      const information = JSON.parse(data);
+      //Supprime le RDV enregistré dans le JSON
+      information.splice(n, 1);
+      //Met à jour le JSON en supprimant les données du RDV
+      fs.writeFileSync("./data.json", JSON.stringify(information, null, 2),(err)=>{
+        if(err){
+          console.log(`${err.message}`);
+        }else {
+          console.log('Writefile reussit');
+        }
+      })
+    }
+  })
+  var errors=[]
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+  let data = {
+      titre: req.body.titre,
+      dateDebut: req.body.dateDebut+' '+req.body.heureDebut,
+      dateFin : req.body.dateFin+' '+req.body.heureFin,
+      id: req.body.id
+  }
+  let sql =`DELETE FROM agenda WHERE id = ?`
+  let params =[data.id]
+  db.run(sql, params, function (err, result) {
+      if (err){
+          res.status(400).json({"error": err.message})
+          return;
+      }res.status(200).json({           
+        "data": data,      
+  deletedID: this.changes });
+      
+  });
+})
