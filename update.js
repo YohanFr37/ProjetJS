@@ -63,13 +63,13 @@ function buttonUpdate(id,titre, debut,fin,i){
     let heureFin = fin.slice(-5);
 
     //Recupère les données depuis le JSON
-    document.getElementById("id").setAttribute("value", id); 
-    document.getElementById("titre").setAttribute("value", title); 
-    document.getElementById("dateDebut").setAttribute("value", dateDebut);
-    document.getElementById("dateFin").setAttribute("value", dateFin);  
-    document.getElementById("heureDebut").setAttribute("value", heureDebut); 
-    document.getElementById("heureFin").setAttribute("value", heureFin); 
-    document.getElementById("nb").setAttribute("value", i); 
+    document.getElementById("idUpdate").setAttribute("value", id); 
+    document.getElementById("titreUpdate").setAttribute("value", title); 
+    document.getElementById("dateDebutUpdate").setAttribute("value", dateDebut);
+    document.getElementById("dateFinUpdate").setAttribute("value", dateFin);  
+    document.getElementById("heureDebutUpdate").setAttribute("value", heureDebut); 
+    document.getElementById("heureFinUpdate").setAttribute("value", heureFin); 
+    document.getElementById("nbUpdate").setAttribute("value", i); 
     let update = document.getElementById("update");
     update.style.display = "";
 }

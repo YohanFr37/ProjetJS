@@ -107,7 +107,7 @@ fs.readFile("./data.json", "utf8",(err,data)=>{
 //Met à jour un RDV
 app.post("/calendrier/update/", (req, res, next) => {
   //Récupère la position du RDV à changer par rapport au fichier JSON
-  let n = req.body.nb;
+  let n = req.body.nbUpdate;
   const fs = require("fs")
   fs.readFile("./data.json", "utf8",(err,data)=>{
     if(err){
@@ -143,10 +143,10 @@ app.post("/calendrier/update/", (req, res, next) => {
       return;
   }
   let data = {
-      titre: req.body.titre,
-      dateDebut: req.body.dateDebut+' '+req.body.heureDebut,
-      dateFin : req.body.dateFin+' '+req.body.heureFin,
-      id: req.body.id
+      titre: req.body.titreUpdate,
+      dateDebut: req.body.dateDebutUpdate+' '+req.body.heureDebutUpdate,
+      dateFin : req.body.dateFinUpdate+' '+req.body.heureFinUpdate,
+      id: req.body.idUpdate
   }
   let sql =`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`
   let params =[data.titre, data.dateDebut, data.dateFin, data.id]

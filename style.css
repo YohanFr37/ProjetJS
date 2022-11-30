@@ -21,8 +21,3 @@ table.jour {
 #calendrier{
     height: 7em;
 }
-
-#day-table {
-    table-layout: fixed;
-    width: 49em;
-}

@@ -142,7 +142,6 @@ function previousMonth() {
 // Method to generate and display (fill) the calendar grid
 function showCalendar(month, year) {
 
-
     //Désactive tous les éléments des vues jour et semaines, active celle du mois
     btnMonth.disabled = true;
     btnWeek.disabled = false;
@@ -280,11 +279,9 @@ function showDay() {
     dayButton.style.display = "";
     weekButton.style.display = "none";
     calendarButton.style.display = "none";
-
     
     let table = document.getElementById("day-body");
     table.innerHTML = ""; // Clears all table cells
-    
     //Affiche en haut et au centre de la page les informations concernant le jour, mois et année
     info.innerHTML = daySelect + " " + months[monthSelect] + " " + yearSelect;
 
@@ -298,7 +295,6 @@ function showDay() {
                 let cell = document.createElement("td");
                 cell.setAttribute("id", "jour");
                 let cellText = document.createTextNode(i+":00"); //Insère le texte pour les heure ex "08:00"
-
                 cell.appendChild(cellText);
                 row.appendChild(cell);
             } else {
@@ -309,11 +305,8 @@ function showDay() {
     
                 cell.appendChild(cellText);
                 row.appendChild(cell);
-
             }
-            
         }
-        
         table.appendChild(row);
     }
 }
