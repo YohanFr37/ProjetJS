@@ -30,29 +30,6 @@ app.listen(HTTP_PORT, () => {
     console.log("Server is listening on port " + HTTP_PORT);
 });
 
-app.get("/agenda/:id", (req, res) => {
-    var params = [req.params.id]
-    db.get(`SELECT * FROM agenda where id = ?`, [req.params.id], (err, row) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        //res.render('test',{output: params})
-        res.status(200).json(row);
-      });
-});
-
-app.get("/agenda", (req, res) => {
-    db.all("SELECT * FROM agenda", [], (err, rows) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        //res.data();
-        res.status(200).json({rows});
-        
-      });
-});
 
 //Requête d'insertion de données sous JSON
 app.post("/calendrier/add/", (req, res, next) => {
@@ -161,32 +138,6 @@ app.post("/calendrier/update/", (req, res, next) => {
   });
 })
 
-app.patch("/agenda/:id", (req, res, next) => {
-    var reqBody = re.body;
-    db.run(`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`,
-        [reqBody.titre, reqBody.dateDebut, reqBody.dateFin, reqBody.id],
-        function (err, result) {
-            if (err) {
-                res.status(400).json({ "error": res.message })
-                return;
-            }
-            res.status(200).json({ updatedID: this.changes });
-        });
-});
-
-app.delete("/agenda/:id", (req, res, next) => {
-    db.run(`DELETE FROM agenda WHERE id = ?`,
-        req.params.id,
-        function (err, result) {
-            if (err) {
-                res.status(400).json({ "error": res.message })
-                return;
-            }
-            res.status(200).json({ deletedID: this.changes })
-        });
-});
-
-
 //Supprimer un RDV un RDV
 app.post("/calendrier/delete/", (req, res, next) => {
   //Récupère la position du RDV à changer par rapport au fichier JSON
@@ -234,3 +185,52 @@ app.post("/calendrier/delete/", (req, res, next) => {
       
   });
 })
+
+app.patch("/agenda/:id", (req, res, next) => {
+    var reqBody = re.body;
+    db.run(`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`,
+        [reqBody.titre, reqBody.dateDebut, reqBody.dateFin, reqBody.id],
+        function (err, result) {
+            if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ updatedID: this.changes });
+        });
+});
+
+app.delete("/agenda/:id", (req, res, next) => {
+    db.run(`DELETE FROM agenda WHERE id = ?`,
+        req.params.id,
+        function (err, result) {
+            if (err) {
+                res.status(400).json({ "error": res.message })
+                return;
+            }
+            res.status(200).json({ deletedID: this.changes })
+        });
+});
+
+app.get("/agenda/:id", (req, res) => {
+    var params = [req.params.id]
+    db.get(`SELECT * FROM agenda where id = ?`, [req.params.id], (err, row) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        //res.render('test',{output: params})
+        res.status(200).json(row);
+      });
+});
+
+app.get("/agenda", (req, res) => {
+    db.all("SELECT * FROM agenda", [], (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        //res.data();
+        res.status(200).json({rows});
+        
+      });
+});

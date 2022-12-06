@@ -18,6 +18,19 @@ table.jour {
 
 }
 
-#calendrier{
+#calendar{
     height: 7em;
+}
+
+#buttonUpdate{
+    border: 0.1em solid #3a48c8;
+    /*border-top: 0.1em solid #3a48c8;
+    border-radius:0;*/
+font-size: 75%;
+text-align: left;
+    width: 100%;
+}
+
+td#calendrier{
+    padding:0;
 }

@@ -79,3 +79,41 @@ function Annuler(){
     let update = document.getElementById("update");
     update.style.display = "none";
 }
+
+
+/*
+                    for (let k = 0; k < data.length; k++) {
+
+                        let dateDebut = data[k].dateDebut;
+                        let dateFin = data[k].dateFin;
+                            //Création du bouton update ouvrant un formulaire pour modifer un RDV
+                            printBtn(dateDebut, buttonDay);
+                            function printBtn(dateDebut, buttonDay){
+
+                        let dayDebut = dateDebut.slice(8, 10);
+                        let monthDebut = dateDebut.slice(5, 7);
+                        let yearDebut = dateDebut.slice(0, 4);
+                        //console.log(yearDebut);
+                        if (buttonDay == dayDebut && month + 1 == monthDebut && year == yearDebut) {
+                                let buttonUpdate = document.createElement("button");
+                                let div = document.createElement("div");
+                                buttonUpdate.setAttribute("type", "button");
+                                buttonUpdate.setAttribute("id", "buttonUpdate");
+                                buttonUpdate.setAttribute("class", "btn btn-primary");
+                                buttonUpdate.setAttribute("value", i);
+                                buttonUpdate.textContent = data[k].titre.slice(0,10);
+                                if(data[k].titre.length > 10){
+                                    buttonUpdate.textContent += "...";
+                                }
+                            cell.appendChild(div);
+                            div.appendChild(buttonUpdate);
+                            }
+                        }
+                        if(data[k].dateDebut != data[k].dateFin){
+                            let buttonDayB = buttonDay+1;
+                            printBtn(data[k].dateDebut,buttonDay-1); 
+                            //console.log(data[k].dateDebut);
+                            data[k].dateDebut = nextCalendarDay(data[k].dateDebut);
+                            //console.log(data[k].dateDebut);
+                        }
+                    }*/
