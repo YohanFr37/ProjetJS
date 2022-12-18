@@ -6,16 +6,19 @@ const { json } = require('body-parser');
 const e = require('express');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+const getAccountData = () => {
+  const jsonData = fs.readFileSync("data.json")
+  return JSON.parse(jsonData)   
+}
+const saveAccountData = (data) => {
+  const stringifyData = JSON.stringify(data)
+  fs.writeFileSync("data.json", stringifyData)
+}
 let file = "agenda.db";
 let db = new sqlite3.Database(file);
 
 app.use(express.static(__dirname + '/'));
 // Endpoints
-
-app.get('/', (req, res) => {
-    //res.redirect('login.html') 
-})
 
 app.get('/update', (req, res) => {
     res.redirect('update.html') 
@@ -178,19 +181,6 @@ app.post("/calendrier/delete/", (req, res, next) => {
   });
 })
 
-app.patch("/agenda/:id", (req, res, next) => {
-    var reqBody = re.body;
-    db.run(`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`,
-        [reqBody.titre, reqBody.dateDebut, reqBody.dateFin, reqBody.id],
-        function (err, result) {
-            if (err) {
-                res.status(400).json({ "error": res.message })
-                return;
-            }
-            res.status(200).json({ updatedID: this.changes });
-        });
-});
-
 app.get("/agenda/:id", (req, res) => {
     var params = [req.params.id]
     db.get(`SELECT * FROM agenda where id = ?`, [req.params.id], (err, row) => {
@@ -209,38 +199,15 @@ app.get("/agenda", (req, res) => {
           res.status(400).json({"error":err.message});
           return;
         }
-        //res.data();
-        res.status(200).json({rows});
-        
+        res.status(200).json({rows});        
       });
 });
 
-app.get('/agenda/:id', (req, res, next)=>{
-  fs.readFile('data.json', (err, data)=>{
-   if (err) throw err
-   res.send(data);
-  })
+app.delete('/agenda/:id', function (req, res,next) {
 });
 
-app.delete('/agenda/:id', function (req, res) {
-  fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
-      data = JSON.parse(data);
-      delete data["user" + req.params.id];
-      console.log(data);
-      fs.writeFile('data.json', JSON.stringify(data), function (err) {
-          if(err){return console.log(err);}
-      });
-  });
+app.put('/agenda/:id', (req, res) => {
 });
-/*
-app.delete("/agenda/:id", (req, res, next) => {
-  db.run(`DELETE FROM agenda WHERE id = ?`,
-      req.params.id,
-      function (err, result) {
-          if (err) {
-              res.status(400).json({ "error": res.message })
-              return;
-          }
-          res.status(200).json({ deletedID: this.changes })
-      });
-});*/
+
+app.patch("/agenda/:id", (req, res, next) => {
+});
