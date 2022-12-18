@@ -1,0 +1,213 @@
+const sqlite3 = require('sqlite3')
+const express = require('express')
+const app = express()
+const bodyParser = require("body-parser");
+const { json } = require('body-parser');
+const e = require('express');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const getAccountData = () => {
+  const jsonData = fs.readFileSync("data.json")
+  return JSON.parse(jsonData)   
+}
+const saveAccountData = (data) => {
+  const stringifyData = JSON.stringify(data)
+  fs.writeFileSync("data.json", stringifyData)
+}
+let file = "agenda.db";
+let db = new sqlite3.Database(file);
+
+app.use(express.static(__dirname + '/'));
+// Endpoints
+
+app.get('/update', (req, res) => {
+    res.redirect('update.html') 
+})
+
+app.get('/calendar', (req, res) => {
+    res.redirect('calendar.html') 
+})
+
+const HTTP_PORT = 8080
+app.listen(HTTP_PORT, () => {
+    console.log("Server is listening on port " + HTTP_PORT);
+});
+
+
+//Requête d'insertion de données sous JSON
+app.post("/calendrier/add/", (req, res, next) => {
+  var errors=[]
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+  let data = {
+      titre: req.body.titre,
+      dateDebut: req.body.dateDebut+' '+req.body.heureDebut,
+      dateFin : req.body.dateFin+' '+req.body.heureFin
+  }
+  let sql ='INSERT INTO agenda (titre, dateDebut, dateFin) VALUES (?,?,?)'
+  let params =[data.titre, data.dateDebut, data.dateFin]
+  db.run(sql, params, function (err, result) {
+      if (err){
+          res.status(400).json({"error": err.message})
+          return;
+      }
+      const fs = require("fs")
+fs.readFile("./data.json", "utf8",(err,data)=>{
+  if(err){
+    console.log(`Erreur:${err.message}`);
+  } else {
+    const information = JSON.parse(data);
+    let newData = {
+      id: this.lastID,
+      titre: params[0],
+      dateDebut: params[1],
+      dateFin: params[2],
+    };
+    information.push(newData);
+    fs.writeFile("./data.json", JSON.stringify(information),(err)=>{
+      if(err){
+        console.log(`${err.message}`);
+      }else {
+        console.log('Writefile reussit');
+      }
+    })
+  }
+})
+res.redirect('../calendar.html');
+  });
+
+})
+
+//Met à jour un RDV
+app.post("/calendrier/update/", (req, res, next) => {
+  //Récupère la position du RDV à changer par rapport au fichier JSON
+  let n = req.body.nbUpdate;
+  const fs = require("fs")
+  fs.readFile("./data.json", "utf8",(err,data)=>{
+    if(err){
+      res.status(400).json({"error":err.message});
+
+      console.log(`Erreur:${err.message}`);
+    } else {
+      const information = JSON.parse(data);
+      
+      let newData = {
+        id: parseInt(params[3]),
+        titre: params[0],
+        dateDebut: params[1],
+        dateFin: params[2],
+      };
+      //Récupère les nouvelles informations
+      information[n].titre = params[0];
+      information[n].dateDebut = params[1];
+      information[n].dateFin = params[2];
+      //Met à jour le JSON
+      fs.writeFileSync("./data.json", JSON.stringify(information, null, 2),(err)=>{
+        if(err){
+          console.log(`${err.message}`);
+        }else {
+          console.log('Writefile reussit');
+        }
+      })
+    }
+  })
+  var errors=[]
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+  let data = {
+      titre: req.body.titreUpdate,
+      dateDebut: req.body.dateDebutUpdate+' '+req.body.heureDebutUpdate,
+      dateFin : req.body.dateFinUpdate+' '+req.body.heureFinUpdate,
+      id: req.body.idUpdate
+  }
+  let sql =`UPDATE agenda set titre = ?, dateDebut = ?, dateFin = ? WHERE id = ?`
+  let params =[data.titre, data.dateDebut, data.dateFin, data.id]
+  db.run(sql, params, function (err, result) {
+      if (err){
+          res.status(400).json({"error": err.message})
+          return;
+      }res.redirect('../calendar.html');
+      
+  });
+})
+
+//Supprimer un RDV un RDV
+app.post("/calendrier/delete/", (req, res, next) => {
+  //Récupère la position du RDV à changer par rapport au fichier JSON
+  let n = req.body.idDelete;
+  const fs = require("fs")
+  fs.readFile("./data.json", "utf8",(err,data)=>{
+    if(err){
+      res.status(400).json({"error":err.message});
+      console.log(`Erreur:${err.message}`);
+    } else {
+      //Recupère le contenu du JSON
+      const information = JSON.parse(data);
+      //Supprime le RDV enregistré dans le JSON
+      information.splice(n, 1);
+      //Met à jour le JSON en supprimant les données du RDV
+      fs.writeFileSync("./data.json", JSON.stringify(information, null, 2),(err)=>{
+        if(err){
+          console.log(`${err.message}`);
+        }else {
+          console.log('Writefile reussit');
+        }
+      })
+    }
+  })
+  var errors=[]
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+  let data = {
+      titre: req.body.titre,
+      dateDebut: req.body.dateDebut+' '+req.body.heureDebut,
+      dateFin : req.body.dateFin+' '+req.body.heureFin,
+      id: req.body.id
+  }
+  let sql =`DELETE FROM agenda WHERE id = ?`
+  let params =[data.id]
+  db.run(sql, params, function (err, result) {
+      if (err){
+          res.status(400).json({"error": err.message})
+          return;
+      }res.redirect('../calendar.html');
+      
+  });
+})
+
+app.get("/agenda/:id", (req, res) => {
+    var params = [req.params.id]
+    db.get(`SELECT * FROM agenda where id = ?`, [req.params.id], (err, row) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        //res.render('test',{output: params})
+        res.status(200).json(row);
+      });
+});
+
+app.get("/agenda", (req, res) => {
+    db.all("SELECT * FROM agenda", [], (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.status(200).json({rows});        
+      });
+});
+
+app.delete('/agenda/:id', function (req, res,next) {
+});
+
+app.put('/agenda/:id', (req, res) => {
+});
+
+app.patch("/agenda/:id", (req, res, next) => {
+});

@@ -9,8 +9,9 @@ Installation de nodemon
 Mac/Linux : npm install nodemon --save-dev
 Windows : npm install -g nodemon
 
-Installation de SQLite :
+Installation des dépendances :
 npm install sqlite3
+npm install body-parser
 
 Voir si node et npm sont installés (retourne le n° de version si c'est le cas)
 node -v
@@ -26,34 +27,37 @@ Clé authentification:
 nom : admin
 mdp : admin123
 
-Installation fullcalandar
-npm install fullcalendar
+## Ajout de rendez-vous
 
-## Design Pattern Projet
+Possible d'ajouter un rendez-vous depuis n'importe quelle vue
 
-Dans ce projet, vous devez développer en groupe une application Web avec une architecture client-serveur pour gérer des agendas.
+## Modification de rendez-vous
 
-### Détails pratiques
+Cliquer sur le rendez-vous en question.
+* mettre à jour en cliquant sur valider
+* supprimer en cliquant sur le bouton en question
 
-Vous travaillerez par équipe de trois étudiants. Pensez à déclarez votre équipe sur arche avec un lien vers le dépôt de votre projet. Celui-ci est à rendre pour le 18 décembre 2022. Vous devrez marquer la version finale avec le tag release.
+## Mois
 
-### Cahier des charges
+Les rendez-vous sont affichés sous forme de boutons dans le calendrier en fonction du début du rendez-vous.
 
-Le serveur stocke toutes les données utilisateurs et les synchronise en temps réel avec les clients.
-La sécurité n'est pas à prendre en compte. Une authenti^\cation par simple login ou avec un mot de passe en clair est suffisant.
-La persistance des données peut se faire par un fichier (CSV, json, . . .). Vous n'avez pas à déployer une base de données.
-Depuis le client Web, l'utilisateur doit pouvoir :
+## Semaine
 
-* Visualiser ses rendez-vous par jour, semaine ou mois.
-* Ajouter un rendez-vous en indiquant son titre, sa date et sa durée.
-* Modifier ou supprimer un rendez-vous.
+Les rendez-vous sont placés en fonction de l'heure et du jour de départ.
 
-Vous devez fournir une API documentée qui explique comment réaliser ces opérations de manière extérieure (par exemple via curl). Le format des requêtes à réaliser et celui des données transmises sont libres. 
-La documentation technique indiquera comment réaliser les requêtes et analyser les réponses.
-La documentation devra expliquer clairement les commandes à réaliser pour lancer le serveur en local et la manière d'obtenir le client Web (fichier en dur ou page renvoyée dynamiquement par une requête).
+## Jour
 
-### Critères d'évaluation
-* Le respect du cahier des charges est le premier critère d'évaluation.
-* La stabilité du serveur et de l'application Web sont importantes.
-* L'ergonomie et le design de la page seront considérés.
-* Des points (2-3 au maximum) seront attribués pour des fonctionnalités supplémentaires pertinentes.
+Les rendez-vous sont placés en fonction de l'heure de départ.
+
+## API curl
+
+Seul GET est fonctionnel.
+
+Liste de tous les rendez-vous :
+
+* curl -i http://localhost:8080/agenda/
+
+
+Voir un rendez-vous particulier :
+
+* curl -i http://localhost:8080/agenda/85

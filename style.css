@@ -1,0 +1,65 @@
+table.table {
+    table-layout: fixed;
+    width: 49em;
+}
+
+#top{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+table.jour {
+    table-layout: fixed;
+    width: 49em;
+}
+
+#jour{
+    height: 1em;
+
+}
+
+#calendar{
+    height: 7em;
+}
+
+#buttonUpdate{
+    border: 0.1em solid #3a48c8;
+    /*border-top: 0.1em solid #3a48c8;
+    border-radius:0;*/
+font-size: 75%;
+text-align: left;
+    width: 100%;
+}
+
+td#calendrier{
+    padding:0;
+}
+
+#rowAdd{
+    margin: 0.5em 0 0.5em 0;
+}
+
+#rowLog{
+    margin: 1em 0 1em 0;
+}
+
+#rowUpdate{
+    margin: 0.5em 0 0.5em 0;
+}
+
+#month-button{
+    margin: 0.5em 0 0.5em 0;
+}
+
+#day-button{
+    margin: 0.5em 0 0.5em 0;
+}
+
+#week-button{
+    margin: 0.5em 0 0.5em 0;
+}
+
+#log{
+    margin:3em;
+    text-align: center;
+}

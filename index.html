@@ -3,44 +3,53 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Calendrier</title>
+  <title>Login</title>
   <meta name="description" content="Application web calendrier, avec gestion de rendez-vous et évènements">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 </head>
 
 <body>
-  <div> <!-- Global container -->
-    <div> <!-- Calendar grid container, shows which month and year is being displayed-->
-      <h3 id="monthAndYear">Mois Année</h3>
-      <div> <!-- Prev/Next month buttons, other future buttons ?-->
-
-        <button id="previous" onclick="previousMonth()">Précédent</button>
-        <button id="next" onclick="nextMonth()">Suivant</button>
-        <button id="today" onclick="todaysMonth()">Aujourd'hui</button>
-
-      </div>
-      <table id="calendar">
-        <thead> <!-- Days of the week row-->
-        <tr>
-          <th>Lundi</th>
-          <th>Mardi</th>
-          <th>Mercredi</th>
-          <th>Jeudi</th>
-          <th>Venredi</th>
-          <th>Samedi</th>
-          <th>Dimanche</th>
-        </tr>
-        </thead>
-
-        <tbody id="calendar-body">
-          <!-- Calendar body, dynamically generated with JS script -->
-        </tbody>
-      </table>
+  <div>
+    <!-- Global container -->
+    <div>
+      <!-- Calendar grid container, shows which month and year is being displayed-->
+      <form class="login-form">
+        <div class="container" id="log">
+          <div class="row" id="rowLog">
+            <div class="col">
+              <h2>Authentification</h2>
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <input type="text" id="login" name="login" placeholder="Nom de compte" required />
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required />
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <button type="button" id="Login" class="btn btn-primary" onclick="Validate()">Connection</button>
+            </div>
+          </div>
+      </form>
+      <script>
+        function Validate() {
+          const log = document.getElementById("login").value;
+          const mdp = document.getElementById("mdp").value;
+          if (log == "admin" && mdp == "admin123") {
+            document.location.href = "calendar";
+          }
+        }
+      </script>
     </div>
     <br>
   </div>
-
-  <script src="js/scripts.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
 </body>
 
 </html>
