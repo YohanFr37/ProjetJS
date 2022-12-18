@@ -275,10 +275,8 @@ function showWeek() {
     for (const dayS of ["week-day-lun", "week-day-mar", "week-day-mer", "week-day-jeu", "week-day-ven", "week-day-sam", "week-day-dim"]) {
         dayWeek = document.getElementById(dayS);
         currentDayWeek = currentDayWeek % getDaysInMonth(yearSelect, monthSelect + 1);
-        if (currentDayWeek == 0)
-            currentDayWeek++;
-        dayWeek.innerHTML = currentDayWeek;
         currentDayWeek++;
+        dayWeek.innerHTML = currentDayWeek;
     }
 
     let table = document.getElementById("week-body");
@@ -304,6 +302,54 @@ function showWeek() {
 
                 cell.appendChild(cellText);
                 row.appendChild(cell);
+                //Affiche les rendez-vous sous forme de bouton sur le calendrier
+                const test = fetch('data.json')
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        appendData(data);
+                    })
+                    .catch(function (err) {
+                        console.log('error: ' + err);
+                    });
+                function appendData(data) {
+                    for (let k = 0; k < data.length; k++) {
+                        //Récupère les données du JSON
+                        let dateDebut = data[k].dateDebut;
+                        let dateFin = data[k].dateFin;
+                        //Création des variables récupérant le jour, le mois et l'année
+                        let dayDebut = dateDebut.slice(8, 10);
+                        let monthDebut = dateDebut.slice(5, 7);
+                        let yearDebut = dateDebut.slice(0, 4);
+                        let heureDebut = dateDebut.slice(11, 13);
+                        console.log(dayDebut+" "+ (currentDayWeek-j+1)+ " "+monthDebut+" "+ monthSelect +" "+yearSelect+" "+yearDebut+" "+i+" "+heureDebut);
+                        //Condition permettant d'afficher un rendez-vous à la bonne journée, au bon mois et à la bonne année
+                        if (i == heureDebut && monthSelect + 1 == monthDebut && yearSelect == yearDebut && (currentDayWeek-j+1) == dayDebut) {
+                            console.log("coucou");
+                            //Affichage de chaque rendez-vous enregistrer depuis le fichier JSON
+                            btnDataWeek();
+                            function btnDataWeek(){
+                                console.log(k);
+                                let buttonUpdate = document.createElement("button");
+                                let div = document.createElement("div");
+                                buttonUpdate.setAttribute("type", "button");
+                                buttonUpdate.setAttribute("id", "buttonUpdate");
+                                buttonUpdate.setAttribute("class", "btn btn-primary");
+                                buttonUpdate.setAttribute("value", data[k].id);
+                                buttonUpdate.setAttribute("onclick", "buttonUpdate("+data[k].id+",'"+data[k].titre+"','"+data[k].dateDebut+"','"+data[k].dateFin+"',"+k+","+1+")");
+                                buttonUpdate.textContent = data[k].titre.slice(0,7);
+                                //Met des pointillet si le tire fait plus de 10 caractères
+                                if(data[k].titre.length > 7){
+                                    buttonUpdate.textContent += "...";
+                                }
+                                //Ajout du RDV sous forme de bouton sur le calendrier
+                                cell.appendChild(div);
+                                div.appendChild(buttonUpdate);
+                            }
+                        }
+                    }
+                }
             }
         }
         table.appendChild(row);

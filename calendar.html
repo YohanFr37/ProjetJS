@@ -323,7 +323,7 @@
           </fieldset>
         </form>
         <div id="myData">
-          <form id="update" action="/calendrier/update" style="display: none" method="POST">
+          <form id="updateWeek" action="/calendrier/update" style="display: none" method="POST">
             <fieldset>
               <div class="container">
                 <div class="row" id="rowUpdate">
@@ -389,8 +389,8 @@
                   <div class="col-3">
                     <form id="deleteWeek" action="/calendrier/delete" method="POST">
                       <button type="submit" class="btn btn-danger" id="buttonDeleteWeek"
-                        form="delete">Supprimer</button>
-                      <input type="number" id="idDeleteWeek" name="idDelete" form="delete" style="visibility: hidden;">
+                        form="deleteWeek">Supprimer</button>
+                      <input type="number" id="idDeleteWeek" name="idDelete" form="deleteWeek" style="visibility: hidden;">
                     </form>
                   </div>
                 </div>
