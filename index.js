@@ -72,11 +72,7 @@ fs.readFile("./data.json", "utf8",(err,data)=>{
     })
   }
 })
-      res.json({
-          "message": "success",
-          "data": data,
-          "id" : this.lastID
-      })
+res.redirect('../calendar.html');
   });
 
 })
@@ -131,9 +127,7 @@ app.post("/calendrier/update/", (req, res, next) => {
       if (err){
           res.status(400).json({"error": err.message})
           return;
-      }res.status(200).json({           
-        "data": data,      
-  updatedID: this.changes });
+      }res.redirect('../calendar.html');
       
   });
 })
@@ -179,9 +173,7 @@ app.post("/calendrier/delete/", (req, res, next) => {
       if (err){
           res.status(400).json({"error": err.message})
           return;
-      }res.status(200).json({           
-        "data": data,      
-  deletedID: this.changes });
+      }res.redirect('../calendar.html');
       
   });
 })
