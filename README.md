@@ -9,6 +9,9 @@ Installation de nodemon
 Mac/Linux : npm install nodemon --save-dev
 Windows : npm install -g nodemon
 
+Installation de SQLite :
+npm install sqlite3
+
 Voir si node et npm sont installés (retourne le n° de version si c'est le cas)
 node -v
 npm -v
