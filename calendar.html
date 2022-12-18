@@ -44,7 +44,7 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-2">
-                      <label class="lead mr-2 ml-2" for="month">Jump To: </label>
+                      <label class="lead mr-2 ml-2" for="month" id="select">Sélectionner</label>
                     </div>
                     <div class="col-2">
                       <select class="form-control" name="monthSelect" id="monthSelect" onchange="jump()">
@@ -103,31 +103,133 @@
             </table>
           </div>
           <div class="col-4">
-            <h2>Insert</h2>
             <form action="/calendrier/add" method="POST">
               <fieldset>
-                <div>
-                  <div>
-                    <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                <div class="container">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <h2>Ajouter une date</h2>
+                    </div>
                   </div>
-                  <label for="dateDebut">Date Début:</label>
-                  <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateDebut">Date Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateFin">Date Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <button type="submit" class="btn btn-success">Valider</button>
+                    </div>
+                    <div class="col">
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label for="dateFin">Date Fin:</label>
-                  <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
-                </div>
-                <div>
-                  <label for="appt">Heure Début:</label>
-                  <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
-                </div>
-                <div>
-                  <label for="appt">Heure Fin:</label>
-                  <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
-                </div>
-                <div> <button type="submit">Valider</button></div>
               </fieldset>
             </form>
+            <div id="myData">
+              <form id="update" action="/calendrier/update" style="display: none" method="POST">
+                <fieldset>
+                  <div class="container">
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <h2>Modifier une date</h2>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <input type="text" id="titreUpdate" name="titreUpdate" placeholder="Titre" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate" style="display: none">
+                      <div class="col">
+                        <input type="number" id="idUpdate" name="idUpdate" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateDebut">Date Début :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateDebutUpdate" name="dateDebutUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label id="testttt" for="appt">Heure Debut:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureDebutUpdate" name="heureDebutUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="appt">Heure Fin:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureFinUpdate" name="heureFinUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateFin">Date Fin :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateFinUpdate" name="dateFinUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col" style="display: none">
+                        <input type="number" id="nbUpdate" name="nbUpdate"></input>
+                      </div>
+                      <div class="col-3">
+                        <button type="submit" class="btn btn-success">Valider</button>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-warning" id="annuler" onclick="Annuler(0)">Annuler</button>
+                      </div>
+                      <div class="col-3">
+                        <form id="delete" action="/calendrier/delete" method="POST">
+                          <button type="submit" class="btn btn-danger" id="buttonDelete" form="delete">Supprimer</button>
+                          <input type="number" id="idDelete" name="idDelete" form="delete" style="visibility: hidden;">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -163,31 +265,133 @@
             </table>
           </div>
           <div class="col-4">
-            <h2>Insert</h2>
             <form action="/calendrier/add" method="POST">
               <fieldset>
-                <div>
-                  <div>
-                    <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                <div class="container">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <h2>Ajouter une date</h2>
+                    </div>
                   </div>
-                  <label for="dateDebut">Date Début:</label>
-                  <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateDebut">Date Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateFin">Date Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <button type="submit" class="btn btn-success">Valider</button>
+                    </div>
+                    <div class="col">
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label for="dateFin">Date Fin:</label>
-                  <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
-                </div>
-                <div>
-                  <label for="appt">Heure Début:</label>
-                  <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
-                </div>
-                <div>
-                  <label for="appt">Heure Fin:</label>
-                  <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
-                </div>
-                <div> <button type="submit">Valider</button></div>
               </fieldset>
             </form>
+            <div id="myData">
+              <form id="update" action="/calendrier/update" style="display: none" method="POST">
+                <fieldset>
+                  <div class="container">
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <h2>Modifier une date</h2>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <input type="text" id="titreUpdateWeek" name="titreUpdate" placeholder="Titre" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdateWeek" style="display: none">
+                      <div class="col">
+                        <input type="number" id="idUpdateWeek" name="idUpdate" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateDebut">Date Début :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateDebutUpdateWeek" name="dateDebutUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label id="testttt" for="appt">Heure Debut:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureDebutUpdateWeek" name="heureDebutUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="appt">Heure Fin:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureFinUpdateWeek" name="heureFinUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateFin">Date Fin :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateFinUpdateWeek" name="dateFinUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col" style="display: none">
+                        <input type="number" id="nbUpdateWeek" name="nbUpdate"></input>
+                      </div>
+                      <div class="col-3">
+                        <button type="submit" class="btn btn-success">Valider</button>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-warning" id="annulerWeek" onclick="Annuler(1)">Annuler</button>
+                      </div>
+                      <div class="col-3">
+                        <form id="deleteWeek" action="/calendrier/delete" method="POST">
+                          <button type="submit" class="btn btn-danger" id="buttonDeleteWeek" form="delete">Supprimer</button>
+                          <input type="number" id="idDeleteWeek" name="idDelete" form="delete" style="visibility: hidden;">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -214,71 +418,140 @@
               </tbody>
             </table>
           </div>
-          <div class="col-4" id="insert">
-            <h2>Insert</h2>
+          <div class="col-4">
             <form action="/calendrier/add" method="POST">
               <fieldset>
-                <div>
-                  <div>
-                    <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                <div class="container">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <h2>Ajouter une date</h2>
+                    </div>
                   </div>
-                  <label for="dateDebut">Date Début:</label>
-                  <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <input type="text" id="titre" name="titre" placeholder="Titre" required />
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateDebut">Date Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="dateFin">Date Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Début</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <label for="appt">Heure Fin</label>
+                    </div>
+                    <div class="col">
+                      <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
+                    </div>
+                  </div>
+                  <div class="row" id="rowAdd">
+                    <div class="col">
+                      <button type="submit" class="btn btn-success">Valider</button>
+                    </div>
+                    <div class="col">
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label for="dateFin">Date Fin:</label>
-                  <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
-                </div>
-                <div>
-                  <label for="appt">Heure Début:</label>
-                  <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
-                </div>
-                <div>
-                  <label for="appt">Heure Fin:</label>
-                  <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
-                </div>
-                <div> <button type="submit">Valider</button></div>
               </fieldset>
             </form>
+            <div id="myData">
+              <form id="updateDay" action="/calendrier/update" style="display: none" method="POST">
+                <fieldset>
+                  <div class="container">
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <h2>Modifier une date</h2>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <input type="text" id="titreUpdateDay" name="titreUpdate" placeholder="Titre" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate" style="display: none">
+                      <div class="col">
+                        <input type="number" id="idUpdateDay" name="idUpdate" required />
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateDebut">Date Début :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateDebutUpdateDay" name="dateDebutUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label id="testttt" for="appt">Heure Debut:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureDebutUpdateDay" name="heureDebutUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="appt">Heure Fin:</label>
+                      </div>
+                      <div class="col">
+                        <input type="time" id="heureFinUpdateDay" name="heureFinUpdate" min="00:00" max="24:00" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col">
+                        <label for="dateFin">Date Fin :</label>
+                      </div>
+                      <div class="col">
+                        <input type="date" id="dateFinUpdateDay" name="dateFinUpdate" min="2022-01-01" max="2030-12-31" required>
+                      </div>
+                    </div>
+                    <div class="row" id="rowUpdate">
+                      <div class="col" style="display: none">
+                        <input type="number" id="nbUpdateDay" name="nbUpdate"></input>
+                      </div>
+                      <div class="col-3">
+                        <button type="submit" class="btn btn-success">Valider</button>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-warning" id="annulerDay" onclick="Annuler(2)">Annuler</button>
+                      </div>
+                      <div class="col-3">
+                        <form id="deleteDay" action="/calendrier/delete" method="POST">
+                          <button type="submit" class="btn btn-danger" id="buttonDeleteDay" form="deleteDay">Supprimer</button>
+                          <input type="number" id="idDeleteDay" name="idDelete" form="deleteDay" style="visibility: hidden;">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   </table>
-  <h2>Update/Delete</h2>
-  <tbody id="data-output">
-    <!-- Prodcuts from javascript file in here. -->
-  </tbody>
-  <div id="myData"></div>
-  <form id="update" action="/calendrier/update" style="display: none" method="POST">
-    <fieldset>
-      <div>
-        <div><input type="text" id="titreUpdate" name="titreUpdate" placeholder="Titre" required /></div>
-        <div>
-          <input type="number" id="idUpdate" name="idUpdate" required />
-        </div>
-        <div>
-          <label for="dateDebut">Date Début :</label>
-          <input type="date" id="dateDebutUpdate" name="dateDebutUpdate" min="2022-01-01" max="2030-12-31">
-        </div>
-        <div>
-          <label id="testttt" for="appt">Heure Debut:</label>
-          <input type="time" id="heureDebutUpdate" name="heureDebutUpdate" min="00:00" max="24:00" required>
-        </div>
-        <div>
-          <label for="appt">Heure Fin:</label>
-          <input type="time" id="heureFinUpdate" name="heureFinUpdate" min="00:00" max="24:00" required>
-        </div>
-        <div>
-          <label for="dateFin">Date Fin :</label>
-          <input type="date" id="dateFinUpdate" name="dateFinUpdate" min="2022-01-01" max="2030-12-31">
-        </div>
-        <div> <input type="number" id="nbUpdate" name="nbUpdate"></input></div>
-        <div> <button type="submit">Valider</button></div>
-        <div> <button type="button" id="annuler" onclick="Annuler()">Annuler</button></div>
-    </fieldset>
-  </form>
   <script src="scripts.js"></script>
   <script src="update.js"></script>
   <script src="bootstrap/js/bootstrap.js"></script>

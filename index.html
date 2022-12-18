@@ -6,6 +6,7 @@
   <title>Login</title>
   <meta name="description" content="Application web calendrier, avec gestion de rendez-vous et évènements">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 </head>
 
 <body>
@@ -14,9 +15,27 @@
     <div>
       <!-- Calendar grid container, shows which month and year is being displayed-->
       <form class="login-form">
-        <input type="text" id="login" name="login" placeholder="Nom de compte" required />
-        <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required />
-        <button type="button" id="Login" onclick="Validate()">Login</button>
+        <div class="container" id="log">
+          <div class="row" id="rowLog">
+            <div class="col">
+              <h2>Authentification</h2>
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <input type="text" id="login" name="login" placeholder="Nom de compte" required />
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required />
+            </div>
+          </div>
+          <div class="row" id="rowLog">
+            <div class="col">
+              <button type="button" id="Login" class="btn btn-primary" onclick="Validate()">Connection</button>
+            </div>
+          </div>
       </form>
       <script>
         function Validate() {
@@ -30,6 +49,7 @@
     </div>
     <br>
   </div>
+  <script src="bootstrap/js/bootstrap.js"></script>
 </body>
 
 </html>

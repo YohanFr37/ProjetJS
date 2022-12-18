@@ -45,23 +45,21 @@ for (let i = 0; i < data.length; i++) {
     numberDelete.style.visibility = "hidden";
     buttonUpdate.textContent = data[i].id;
     buttonDelete.textContent = i;
-    div.appendChild(buttonUpdate);
-    div.appendChild(numberUpdate);
-    div.appendChild(formDelete);
-    formDelete.appendChild(buttonDelete);
-    formDelete.appendChild(numberDelete);
-    mainContainer.appendChild(div);
 }
 }
 
 //Fonction affichant la formulaire pour modifier le RDV avec les données déjà insérer
-function buttonUpdate(id,titre, debut,fin,i){
+function buttonUpdate(id,titre, debut,fin,i,u){
     let title = titre;
     let dateDebut = debut.slice(0,10);
     let dateFin = fin.slice(0,10);
     let heureDebut = debut.slice(-5);
     let heureFin = fin.slice(-5);
-
+    console.log(id);
+    console.log(titre);
+    console.log(debut);
+    console.log(fin);
+    console.log(i);
     //Recupère les données depuis le JSON
     document.getElementById("idUpdate").setAttribute("value", id); 
     document.getElementById("titreUpdate").setAttribute("value", title); 
@@ -69,51 +67,52 @@ function buttonUpdate(id,titre, debut,fin,i){
     document.getElementById("dateFinUpdate").setAttribute("value", dateFin);  
     document.getElementById("heureDebutUpdate").setAttribute("value", heureDebut); 
     document.getElementById("heureFinUpdate").setAttribute("value", heureFin); 
-    document.getElementById("nbUpdate").setAttribute("value", i); 
+    document.getElementById("nbUpdate").setAttribute("value", i);     
+    document.getElementById("idDelete").setAttribute("value", i); 
+    document.getElementById("buttonDelete").setAttribute("value", i); 
+
+    document.getElementById("idUpdateDay").setAttribute("value", id); 
+    document.getElementById("titreUpdateDay").setAttribute("value", title); 
+    document.getElementById("dateDebutUpdateDay").setAttribute("value", dateDebut);
+    document.getElementById("dateFinUpdateDay").setAttribute("value", dateFin);  
+    document.getElementById("heureDebutUpdateDay").setAttribute("value", heureDebut); 
+    document.getElementById("heureFinUpdateDay").setAttribute("value", heureFin); 
+    document.getElementById("nbUpdateDay").setAttribute("value", i); 
+    document.getElementById("idDeleteDay").setAttribute("value", i); 
+    document.getElementById("buttonDeleteDay").setAttribute("value", i); 
+
+    document.getElementById("idUpdateWeek").setAttribute("value", id); 
+    document.getElementById("titreUpdateWeek").setAttribute("value", title); 
+    document.getElementById("dateDebutUpdateWeek").setAttribute("value", dateDebut);
+    document.getElementById("dateFinUpdateWeek").setAttribute("value", dateFin);  
+    document.getElementById("heureDebutUpdateWeek").setAttribute("value", heureDebut); 
+    document.getElementById("heureFinUpdateWeek").setAttribute("value", heureFin); 
+    document.getElementById("nbUpdateWeek").setAttribute("value", i);     
+    document.getElementById("idDeleteWeek").setAttribute("value", i); 
+    document.getElementById("buttonDeleteWeek").setAttribute("value", i); 
+
     let update = document.getElementById("update");
-    update.style.display = "";
+    let updateWeek = document.getElementById("updateWeek");
+    let updateDay = document.getElementById("updateDay");
+    if(u ==0){
+        update.style.display = "";
+    } else if (u==1){
+        updateWeek.style.display = "";
+    } else{
+        updateDay.style.display = "";
+    }
 }
 
 //Retire l'affichage de l'interface pour modifier un RDV
-function Annuler(){
+function Annuler(u){
     let update = document.getElementById("update");
-    update.style.display = "none";
+    let updateWeek = document.getElementById("updateWeek");
+    let updateDay = document.getElementById("updateDay");
+    if(u ==0){
+        update.style.display = "none";
+    } else if (u==1){
+        updateWeek.style.display = "none";
+    } else{
+        updateDay.style.display = "none";
+    }
 }
-
-
-/*
-                    for (let k = 0; k < data.length; k++) {
-
-                        let dateDebut = data[k].dateDebut;
-                        let dateFin = data[k].dateFin;
-                            //Création du bouton update ouvrant un formulaire pour modifer un RDV
-                            printBtn(dateDebut, buttonDay);
-                            function printBtn(dateDebut, buttonDay){
-
-                        let dayDebut = dateDebut.slice(8, 10);
-                        let monthDebut = dateDebut.slice(5, 7);
-                        let yearDebut = dateDebut.slice(0, 4);
-                        //console.log(yearDebut);
-                        if (buttonDay == dayDebut && month + 1 == monthDebut && year == yearDebut) {
-                                let buttonUpdate = document.createElement("button");
-                                let div = document.createElement("div");
-                                buttonUpdate.setAttribute("type", "button");
-                                buttonUpdate.setAttribute("id", "buttonUpdate");
-                                buttonUpdate.setAttribute("class", "btn btn-primary");
-                                buttonUpdate.setAttribute("value", i);
-                                buttonUpdate.textContent = data[k].titre.slice(0,10);
-                                if(data[k].titre.length > 10){
-                                    buttonUpdate.textContent += "...";
-                                }
-                            cell.appendChild(div);
-                            div.appendChild(buttonUpdate);
-                            }
-                        }
-                        if(data[k].dateDebut != data[k].dateFin){
-                            let buttonDayB = buttonDay+1;
-                            printBtn(data[k].dateDebut,buttonDay-1); 
-                            //console.log(data[k].dateDebut);
-                            data[k].dateDebut = nextCalendarDay(data[k].dateDebut);
-                            //console.log(data[k].dateDebut);
-                        }
-                    }*/

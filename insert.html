@@ -12,26 +12,46 @@
 <body>
   <form action="/calendrier/add" method="POST">
     <fieldset>
-      <div>
-        <div>
-          <input type="text" id="titre" name="titre" placeholder="Titre" required />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <input type="text" id="titre" name="titre" placeholder="Titre" required />
+          </div>
+          <div class="col">
+            <label for="dateDebut">Date Début:</label>
+          </div>
+          <div class="col">
+            <label for="dateFin">Date Fin:</label>
+          </div>
+          <div class="col">
+            <label for="appt">Heure Début:</label>
+          </div>
+          <div class="col">
+            <label for="appt">Heure Fin:</label>
+          </div>
+          <div class="col">
+            <button type="submit">Valider</button>
+          </div>  
         </div>
-        <label for="dateDebut">Date Début:</label>
-        <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+        <div class="row">
+          <div class="col">
+          </div> 
+          <div class="col">
+            <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+          </div>
+          <div class="col">
+            <input type="date" id="dateDebut" name="dateDebut" min="2022-01-01" max="2030-12-31">
+          </div>
+          <div class="col">
+            <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
+          </div>
+          <div class="col">
+            <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
+          </div>
+          <div class="col">
+          </div>  
+        </div>
       </div>
-      <div>
-        <label for="dateFin">Date Fin:</label>
-        <input type="date" id="dateFin" name="dateFin" min="2022-01-01" max="2030-12-31">
-      </div>
-      <div>
-        <label for="appt">Heure Début:</label>
-        <input type="time" id="heureDebut" name="heureDebut" min="00:00" max="24:00" required>
-      </div>
-      <div>
-        <label for="appt">Heure Fin:</label>
-        <input type="time" id="heureFin" name="heureFin" min="00:00" max="24:00" required>
-      </div>
-      <div> <button type="submit">Valider</button></div>
     </fieldset>
   </form>
   <tbody id="data-output">

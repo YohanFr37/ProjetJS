@@ -141,7 +141,7 @@ app.post("/calendrier/update/", (req, res, next) => {
 //Supprimer un RDV un RDV
 app.post("/calendrier/delete/", (req, res, next) => {
   //Récupère la position du RDV à changer par rapport au fichier JSON
-  let n = req.body.numberDelete;
+  let n = req.body.idDelete;
   const fs = require("fs")
   fs.readFile("./data.json", "utf8",(err,data)=>{
     if(err){
@@ -199,18 +199,6 @@ app.patch("/agenda/:id", (req, res, next) => {
         });
 });
 
-app.delete("/agenda/:id", (req, res, next) => {
-    db.run(`DELETE FROM agenda WHERE id = ?`,
-        req.params.id,
-        function (err, result) {
-            if (err) {
-                res.status(400).json({ "error": res.message })
-                return;
-            }
-            res.status(200).json({ deletedID: this.changes })
-        });
-});
-
 app.get("/agenda/:id", (req, res) => {
     var params = [req.params.id]
     db.get(`SELECT * FROM agenda where id = ?`, [req.params.id], (err, row) => {
@@ -234,3 +222,33 @@ app.get("/agenda", (req, res) => {
         
       });
 });
+
+app.get('/agenda/:id', (req, res, next)=>{
+  fs.readFile('data.json', (err, data)=>{
+   if (err) throw err
+   res.send(data);
+  })
+});
+
+app.delete('/agenda/:id', function (req, res) {
+  fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
+      data = JSON.parse(data);
+      delete data["user" + req.params.id];
+      console.log(data);
+      fs.writeFile('data.json', JSON.stringify(data), function (err) {
+          if(err){return console.log(err);}
+      });
+  });
+});
+/*
+app.delete("/agenda/:id", (req, res, next) => {
+  db.run(`DELETE FROM agenda WHERE id = ?`,
+      req.params.id,
+      function (err, result) {
+          if (err) {
+              res.status(400).json({ "error": res.message })
+              return;
+          }
+          res.status(200).json({ deletedID: this.changes })
+      });
+});*/
